@@ -1,0 +1,61 @@
+.card_drops {
+	color: black;
+}
+
+.card p {
+	margin: 0;
+}
+
+.card {
+	margin-top: 20px;
+	border-radius: 15px;
+	padding: 15px;
+	width: 65%;
+	height: 100%;
+	border: 0;
+}
+
+.card_title_box {
+	position: static;
+	height: 60px;
+}
+
+.card_info_box {
+	padding-top: 10px;
+	position: static;
+}
+
+.card_title {
+	font-weight: 800;
+}
+
+.card_subtitle {
+	overflow: none;
+}
+
+.card_emoji {
+	display: inline;
+	float: right;
+	font-size: 32px !important;
+}
+
+.shadow {
+	position: absolute;
+	border-radius: 15px;
+	display: inline;
+	width: 60px;
+	height: 100%;
+
+	z-index: -1;
+}
+
+.daily_emoji_box {
+	display: inline-block;
+	float: right;
+}
+
+.daily_emoji {
+	font-size: 60px !important;
+}
+
+
