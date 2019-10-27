@@ -51,6 +51,22 @@ class Carder {
 		return ret.join(_break);
 	}
 
+	makeboxes(_arr, _classes, _count) {
+		var ret = [];
+		for(var x=0;x<_count;x++) {
+			if(_arr[x] == undefined) break;
+			ret.push(`
+				<div class=${_classes[0]}>
+					<p class=${_classes[1]}>${_arr[x].key}</p>
+					<p class=${_classes[2]}>${_arr[x].value}</p>
+				</div>
+
+				`)
+		}
+
+		return ret.join("");
+	}
+
 	total_children(puddle) {
 		var count = 0;
 		for(var c=0;c<puddle.children.length;c++) {
@@ -69,12 +85,12 @@ class Carder {
 		<div class="card" style="${puddle.track=='.' ? "width: 100% !important;" : ""} background-color: ${bg}; margin-left: ${depth*40}px">
 			<div class=card_title_box>
 				<p class="card_emoji" style="text-shadow: -5px 5px ${fg}"> ${this.gettop(puddle.emojis, 2)} </p>
-				<p class="card_title" style="color: ${fg}"> ${puddle.track == '.' ? `Daily Search at ${moment(puddle.start_time).format('LLLL')}` : puddle.track} </p>
-				<p class="card_subtitle" style="color: ${fg}"> ${this.gettop(puddle.words, 6, ", ")} </p>
+				<p class="card_title"> ${puddle.track == '.' ? `Daily Search at ${moment(puddle.start_time).format('LLLL')}` : puddle.track} </p>
+				<p class="card_subtitle"> ${this.gettop(puddle.words, 6, ", ")} </p>
 			</div>
 
 			<div class=card_info_box>
-				<p class="card_hashtag_child" style="color: ${fg}"> ${this.gettop(puddle.hashtags, 3," ")} </p>
+				<p class="card_hashtag_child"> ${this.gettop(puddle.hashtags, 3," ")} </p>
 			</div>
 		</div>
 		`
@@ -83,8 +99,6 @@ class Carder {
 	}
 
 	daily(data) {
-		console.log(this.colors["0"])
-		console.log(this.colors["0"][1])
 		var fg = this.colors["0"][1];
 		var bg = this.colors["0"][0];
 		var card = `
@@ -107,50 +121,12 @@ class Carder {
 				<p class="title" style="color: ${fg}"> Aggregate </p>
 			</div>
 
-
 			<div class="word_container">
-				<div class="word_box">
-					<p class="word_key" style="color: ${fg}">${data.words[0].key}</p>
-					<p class="word_value" style="color: ${fg}">${data.words[0].value}</p>
-				</div>
-
-				<div class="word_box">
-					<p class="word_key" style="color: ${fg}">${data.words[1].key}</p>
-					<p class="word_value" style="color: ${fg}">${data.words[1].value}</p>
-				</div>
-
-				<div class="word_box">
-					<p class="word_key" style="color: ${fg}">${data.words[2].key}</p>
-					<p class="word_value" style="color: ${fg}">${data.words[2].value}</p>
-				</div>
-
-				<div class="word_box">
-					<p class="word_key" style="color: ${fg}">${data.words[2].key}</p>
-					<p class="word_value" style="color: ${fg}">${data.words[2].value}</p>
-				</div>
-
-				<div class="word_box">
-					<p class="word_key" style="color: ${fg}">${data.words[3].key}</p>
-					<p class="word_value" style="color: ${fg}">${data.words[3].value}</p>
-				</div>
-
+				${this.makeboxes(data.words, ["word_box", "word_key", "word_value"], 4)}
 			</div>
 
 			<div class="word_container">
-				<div class="word_box">
-					<p class="word_key" style="color: ${fg}">${data.hashtags[0].key}</p>
-					<p class="word_value" style="color: ${fg}">${data.hashtags[0].value}</p>
-				</div>
-
-				<div class="word_box">
-					<p class="word_key" style="color: ${fg}">${data.hashtags[1].key}</p>
-					<p class="word_value" style="color: ${fg}">${data.hashtags[1].value}</p>
-				</div>
-
-				<div class="word_box">
-					<p class="word_key" style="color: ${fg}">${data.hashtags[2].key}</p>
-					<p class="word_value" style="color: ${fg}">${data.hashtags[2].value}</p>
-				</div>
+				${this.makeboxes(data.hashtags, ["word_box", "word_key", "word_value"], 4)}
 			</div>
 
 
