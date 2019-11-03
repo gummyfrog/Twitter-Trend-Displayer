@@ -152,21 +152,21 @@ var reference = "";
 
 switch(title) {
 	case "Recent": reference = "/single_recent"; break;
-	case "Daily": reference = "/multi_recent"; break;
+	case "Daily": reference = "/daily_recent"; break;
 	default: reference = "/single_recent"; break;
 }
 
 $.ajax({
-  url: `http://frogeye.duckdns.org:8100${reference}`,
+  url: `https://frogeye.duckdns.org:8100${reference}`,
   dataType: "json",
   type: "GET",
-}).done((data) => {
+}).done((res) => {
 	if(title == "Recent") {
-		var obj = data[0];
+		var obj = res.data;
 		displayer.puddle_loop(obj);
 	} else {
-		console.log(data);
-		displayer.daily(data, 0)
+		console.log(res);
+		displayer.daily(res.data, 0)
 	}
 
 }).fail((err) => {
@@ -176,7 +176,7 @@ $.ajax({
 
 
 $.ajax({
-  url: `http://frogeye.duckdns.org:8100/active`,
+  url: `https://frogeye.duckdns.org:8100/active`,
   dataType: "json",
   type: "GET",
 }).done((data) => {
