@@ -82,7 +82,7 @@ class Carder {
 		var card = `
 		<div class="shadow" style="background-color: ${bg}; margin-top: 50px; margin-left: ${depth*40}px; height:${((this.total_children(puddle) || 0) * 144) +60}px"></div>
 
-		<div class="card" style="${puddle.track=='.' ? "width: 100% !important;" : ""} background-color: ${bg}; margin-left: ${depth*40}px">
+		<div class="card" style="color:${fg}; ${puddle.track=='.' ? "width: 100% !important;" : ""} background-color: ${bg}; margin-left: ${depth*40}px">
 			<div class=card_title_box>
 				<p class="card_emoji" style="text-shadow: -5px 5px ${fg}"> ${this.gettop(puddle.emojis, 2)} </p>
 				<p class="card_title"> ${puddle.track == '.' ? `Daily Search at ${moment(puddle.start_time).format('LLLL')}` : puddle.track} </p>
