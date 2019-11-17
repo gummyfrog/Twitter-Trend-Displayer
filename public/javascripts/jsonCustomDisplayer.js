@@ -149,11 +149,12 @@ class Carder {
 class timelineGraphHistory {
 
 	constructor(data) {
+		this.ctx = document.getElementById('timeline-graph').getContext('2d');
 		this.charts = this.makeCharts(data);
 	}	
 
-	displayChart(ctx, data) {
-		var newChart = new Chart(ctx, data);
+	displayChart(data) {
+		var newChart = new Chart(this.ctx, data);
 	}
 
 	random_rgba() {
@@ -254,7 +255,6 @@ switch(title) {
 }
 	
 var chart;
-var ctx = document.getElementById('timeline-graph').getContext('2d');
 
 $.ajax({
   url: `https://frogeye.duckdns.org:8100${reference}`,
@@ -268,7 +268,7 @@ $.ajax({
 	} else {
 		displayer.daily(res.data, 0)
 		chart = new timelineGraphHistory(res.data);
-		chart.displayChart(ctx, chart.charts.emojis)
+		chart.displayChart(chart.charts.emojis)
 	}
 
 }).fail((err) => {
