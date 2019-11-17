@@ -137,11 +137,108 @@ class Carder {
 	}
 
 	puddle_loop(puddle, depth = 0) {
+		console.log(puddle)
 		this.card(puddle, depth);
 		for(var x=0;x<puddle.children.length;x++) {
 			var next = puddle.children[x];
 			this.puddle_loop(next, depth+1);
 		}
+	}
+}
+
+class timelineGraphHistory {
+
+	constructor(data) {
+		this.charts = this.makeCharts(data);
+	}	
+
+	displayChart(ctx, data) {
+		var newChart = new Chart(ctx, data);
+	}
+
+	random_rgba() {
+		var o = Math.round, r = Math.random, s = 255;
+		return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + 1 + ')';
+	}
+
+	getHistory(timeline) {
+		var history = {};
+
+		for(var x=0;x<timeline.length;x++) {
+			var snap = timeline[x];
+
+			for(var k=0;k<Object.keys(snap).length;k++) {
+				var key = Object.keys(snap)[k];
+				if(key!="start_time") {
+					for(var y=0;y<2;y++) {
+						var point = snap[key][y];
+
+						if(history[key] == undefined) {history[key]= {}}
+						if(history[key][point.key] == undefined) {history[key][point.key] = []}
+
+						history[key][point.key].push({t: moment.utc(snap.start_time), y: point.value});
+					}
+				}
+			}
+		}
+
+		return(history);
+	}
+
+	makeCharts(data) {
+		var history = this.getHistory(data.timeline_data);
+		var charts = {};
+
+		for(var x=0;x<Object.keys(history).length;x++) {
+			var key = Object.keys(history)[x];
+
+			var obj = {
+				type: "line",
+				data: {
+					labels: [],
+					datasets: [],
+				},
+				options: {
+					scales: {
+						xAxes: [{
+							type: 'time',
+							distribution: 'linear',
+							ticks: {maxTicksLimit: 15}
+						}],
+						yAxes: [{
+							ticks: {beginAtZero: false,}
+						}],
+					},
+					legend: {
+						display: false,
+					},
+				}
+			}
+
+			for(var y=0;y<Object.keys(history[key]).length;y++) {
+				var histKey = Object.keys(history[key])[y];
+
+				if(history[key][histKey].length > 2) {
+
+					var color = this.random_rgba()
+					var dataset = {
+						label: histKey,
+						data: history[key][histKey],
+						backgroundColor: color,
+						borderColor: color,
+						fill: false,
+						lineTension: 0.45,
+					}
+
+					obj.data.labels.push(moment.utc(history[key].start_time).toLocaleString())
+					obj.data.datasets.push(dataset);
+				}
+			}
+
+			charts[key] = obj;
+		}
+
+		return(charts);
 	}
 }
 
@@ -155,6 +252,9 @@ switch(title) {
 	case "Daily": reference = "/daily_recent"; break;
 	default: reference = "/single_recent"; break;
 }
+	
+var chart;
+var ctx = document.getElementById('timeline-graph').getContext('2d');
 
 $.ajax({
   url: `https://frogeye.duckdns.org:8100${reference}`,
@@ -162,18 +262,18 @@ $.ajax({
   type: "GET",
 }).done((res) => {
 	if(title == "Recent") {
+		console.log(res);
 		var obj = res.data;
 		displayer.puddle_loop(obj);
 	} else {
-		console.log(res);
 		displayer.daily(res.data, 0)
+		chart = new timelineGraphHistory(res.data);
+		chart.displayChart(ctx, chart.charts.emojis)
 	}
 
 }).fail((err) => {
 	console.log(err);
 })
-
-
 
 $.ajax({
   url: `https://frogeye.duckdns.org:8100/active`,

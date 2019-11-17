@@ -30,6 +30,14 @@
       <div class="container-fluid">
 
         <div id="cards"> </div>
+        <div id="graph"> 
+          <canvas id="timeline-graph" width="400" height="220"></canvas>
+          <button onclick="chart.displayChart(ctx, chart.charts.hashtags)"> Display Hashtags </button>
+          <button onclick="chart.displayChart(ctx, chart.charts.words)"> Display Words </button>
+          <button onclick="chart.displayChart(ctx, chart.charts.emojis)"> Display Emojis </button>
+
+        </div>
+
 
       </div>
     </div>
@@ -38,10 +46,11 @@
   </div>
   <!-- /#wrapper -->
 
-  <!-- Bootstrap core JavaScript -->
   <script src="https://momentjs.com/downloads/moment.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
   <script src="/javascripts/jquery.min.js"></script>
   <script src='/javascripts/jsonCustomDisplayer.js'></script>
+
 
 </body>
 
