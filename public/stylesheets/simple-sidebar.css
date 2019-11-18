@@ -87,6 +87,22 @@ body {
 }
 
 
+button {
+  background-color:#282a36;
+  border: none;
+  border-radius:15px;
+  display:inline-block;
+  cursor:pointer;
+  color:#f8f8f2;
+  padding:6px 37px;
+  text-decoration:none;
+}
+
+button:active {
+  position:relative;
+  top:1px;
+}
+
 .dripcss {
   display: inline-block;
   position: relative;
@@ -104,6 +120,7 @@ body {
 .dripcss div:nth-child(2) {
   animation-delay: -0.5s;
 }
+
 
 @keyframes drip-anim {
   0% {

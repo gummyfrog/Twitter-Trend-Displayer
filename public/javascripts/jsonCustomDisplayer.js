@@ -51,14 +51,14 @@ class Carder {
 		return ret.join(_break);
 	}
 
-	makeboxes(_arr, _classes, _count) {
+	makeboxes(_arr, _classes, _count, _styles=[]) {
 		var ret = [];
 		for(var x=0;x<_count;x++) {
 			if(_arr[x] == undefined) break;
 			ret.push(`
 				<div class=${_classes[0]}>
-					<p class=${_classes[1]}>${_arr[x].key}</p>
-					<p class=${_classes[2]}>${_arr[x].value}</p>
+					<p ${_styles[x] != undefined ?`style="${_styles[x]}"` : ""} class=${_classes[1]}>${_arr[x].key}</p>
+					<p class=${_classes[2]}>${this.f(_arr[x].value)}</p>
 				</div>
 
 				`)
@@ -105,20 +105,10 @@ class Carder {
 		<div class="daily_card" style="background-color: ${bg}">
 			<div class=title_box>
 				<div class="emoji_container">
-					<div class="emoji_box">
-						<p class="emoji_key" style="font-size: 35px"> ${data.emojis[0].key} </p>
-						<p class="emoji_value" style="font-size: 20px; color: ${fg}"> ${data.emojis[0].value} </p>
-					</div>
-					<div class="emoji_box">
-						<p class="emoji_key" style="font-size: 30px"> ${data.emojis[1].key} </p>
-						<p class="emoji_value" style="font-size: 15px; color: ${fg}"> ${data.emojis[1].value} </p>
-					</div>
-					<div class="emoji_box">
-						<p class="emoji_key" style="font-size: 30px"> ${data.emojis[2].key} </p>
-						<p class="emoji_value" style="font-size: 15px; color: ${fg}"> ${data.emojis[2].value} </p>
-					</div>
+					${this.makeboxes(data.emojis, ["emoji_box", "emoji_key", "emoji_value"], 3, ["font-size: 35px", "font-size: 30px", "font-size: 30px"])}
 				</div>
-				<p class="title" style="color: ${fg}"> Aggregate </p>
+
+				<p class="title" style="color: ${fg}"> Overall Discoveries </p>
 			</div>
 
 			<div class="word_container">
@@ -151,10 +141,18 @@ class timelineGraphHistory {
 	constructor(data) {
 		this.ctx = document.getElementById('timeline-graph').getContext('2d');
 		this.charts = this.makeCharts(data);
+		this.current_chart;
 	}	
 
 	displayChart(data) {
-		var newChart = new Chart(this.ctx, data);
+		if(this.current_chart != null) {
+			this.current_chart.destroy();
+		}
+		this.current_chart = new Chart(this.ctx, data);
+	}
+
+	f(num) {
+		return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
 	}
 
 	random_rgba() {
@@ -171,7 +169,7 @@ class timelineGraphHistory {
 			for(var k=0;k<Object.keys(snap).length;k++) {
 				var key = Object.keys(snap)[k];
 				if(key!="start_time") {
-					for(var y=0;y<2;y++) {
+					for(var y=0;y<snap[key].length;y++) {
 						var point = snap[key][y];
 
 						if(history[key] == undefined) {history[key]= {}}
@@ -200,6 +198,11 @@ class timelineGraphHistory {
 					datasets: [],
 				},
 				options: {
+
+					tooltips: {
+						titleFontSize: 20,
+						bodyFontSize: 20,
+					},
 					scales: {
 						xAxes: [{
 							type: 'time',
@@ -207,34 +210,53 @@ class timelineGraphHistory {
 							ticks: {maxTicksLimit: 15}
 						}],
 						yAxes: [{
+							display: false,
 							ticks: {beginAtZero: false,}
 						}],
 					},
 					legend: {
-						display: false,
+						display: true,
+						position: "right",
+						labels: {
+							fontSize: 20,
+							boxWidth: 10,
+							usePointStyle: true,
+							padding: 0,
+						}
 					},
 				}
 			}
 
+			if(key == "hashtags") {obj.options.legend.labels.fontSize = 14}
+
+			var dataset_sortable = [];
+
 			for(var y=0;y<Object.keys(history[key]).length;y++) {
 				var histKey = Object.keys(history[key])[y];
 
+				// don't chart things that show up less than X times
 				if(history[key][histKey].length > 2) {
-
 					var color = this.random_rgba()
+					var total = history[key][histKey].reduce((acc, point) => acc + point.y, 0);
 					var dataset = {
 						label: histKey,
 						data: history[key][histKey],
 						backgroundColor: color,
 						borderColor: color,
 						fill: false,
-						lineTension: 0.45,
+						lineTension: 0.4,
 					}
 
 					obj.data.labels.push(moment.utc(history[key].start_time).toLocaleString())
-					obj.data.datasets.push(dataset);
+
+					dataset_sortable.push({raw: dataset, value: total});
 				}
 			}
+
+			console.log(dataset_sortable);
+
+			obj.data.datasets = dataset_sortable.sort((a, b) => {return b.value - a.value}).map((sortable) => {return sortable.raw})
+			.splice(0, 9);
 
 			charts[key] = obj;
 		}
