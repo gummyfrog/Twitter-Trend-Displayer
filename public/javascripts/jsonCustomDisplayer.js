@@ -227,7 +227,9 @@ class timelineGraphHistory {
 				}
 			}
 
-			if(key == "hashtags") {obj.options.legend.labels.fontSize = 14}
+			if(key == "hashtags") {
+				obj.options.legend.labels.fontSize = 14;
+			}
 
 			var dataset_sortable = [];
 
@@ -244,7 +246,7 @@ class timelineGraphHistory {
 						backgroundColor: color,
 						borderColor: color,
 						fill: false,
-						lineTension: 0.4,
+						cubicInterpolationMode: "monotone",
 					}
 
 					obj.data.labels.push(moment.utc(history[key].start_time).toLocaleString())
