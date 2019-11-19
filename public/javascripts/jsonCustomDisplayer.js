@@ -212,6 +212,8 @@ class timelineGraphHistory {
 			}
 		}
 
+		console.log(history["emojis"])
+
 		return(history);
 	}
 
@@ -285,7 +287,6 @@ class timelineGraphHistory {
 			}
 		}
 
-		console.log(bar);
 		charts["bar"] = bar;
 
 		for(var x=0;x<Object.keys(history).length;x++) {
@@ -335,24 +336,22 @@ class timelineGraphHistory {
 
 			for(var y=0;y<Object.keys(history[key]).length;y++) {
 				var histKey = Object.keys(history[key])[y];
-
+				console.log(histKey);
 				// don't chart things that show up less than X times
-				if(history[key][histKey].length > 2) {
-					var color = this.random_rgba()
-					var total = history[key][histKey].reduce((acc, point) => acc + point.y, 0);
-					var dataset = {
-						label: histKey,
-						data: history[key][histKey],
-						backgroundColor: color,
-						borderColor: color,
-						fill: false,
-						cubicInterpolationMode: "monotone",
-					}
-
-					obj.data.labels.push(moment.utc(history[key].start_time).toLocaleString())
-
-					dataset_sortable.push({raw: dataset, value: total});
+				var color = this.random_rgba()
+				var total = history[key][histKey].reduce((acc, point) => acc + point.y, 0);
+				var dataset = {
+					label: histKey,
+					data: history[key][histKey],
+					backgroundColor: color,
+					borderColor: color,
+					fill: false,
+					cubicInterpolationMode: "monotone",
 				}
+
+				obj.data.labels.push(moment.utc(history[key].start_time).toLocaleString())
+				dataset_sortable.push({raw: dataset, value: total});
+		
 			}
 
 			console.log(dataset_sortable);

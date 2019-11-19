@@ -55,7 +55,7 @@
 }
 
 .word_box:first-child {
-	animation: bounce 3s ease infinite;
+	animation: bounce 3s ease-in-out infinite;
 }
 
 .word_key {
