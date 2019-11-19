@@ -160,6 +160,37 @@ class timelineGraphHistory {
 		return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + 1 + ')';
 	}
 
+	getColor(value){
+	    var hue=((value)*200).toString(10);
+		return ["hsl(",hue,",80%,50%)"].join("");
+	}
+
+
+	getSentiments(timeline) {
+		var map = {};
+		var res = [];
+		var sentiments = timeline.map((obj) => {
+			return {
+				key: obj.hashtags[0].key, 
+				value: (obj.sentiment-0.5)*2,
+			}
+		})
+
+		sentiments.forEach((a) => {
+			if (!map[a.key]) {
+				map[a.key] = { key: a.key, value: a.value, color: 0};
+				res.push(map[a.key]);
+			}
+			if(a.value < map[a.key].value) {
+				map[a.key].value = a.value;
+			}
+			map[a.key].color = this.getColor(map[a.key].value);
+		}, map);
+
+
+		return(res.sort((a, b) => {return b.value - a.value}));
+	}
+
 	getHistory(timeline) {
 		var history = {};
 
@@ -186,7 +217,76 @@ class timelineGraphHistory {
 
 	makeCharts(data) {
 		var history = this.getHistory(data.timeline_data);
+		var sentiments = this.getSentiments(data.timeline_data);
 		var charts = {};
+
+		var bar = {
+			type: "horizontalBar",
+			data: {
+				labels: sentiments.map((a) => {return a.key}),
+				datasets: [{
+					label: "Sentiments.",
+					barPercentage: 1,
+					barThickness: "flex",
+					data: sentiments.map((a) => {return a.value}),
+					backgroundColor: sentiments.map((a) => {return a.color})
+				}],
+			},
+			options: {
+				tooltips: {
+					titleFontSize: 20,
+					bodyFontSize: 20,
+					callbacks: {
+						label: function(tooltipItem, data) {
+							var label = (Math.round(tooltipItem.xLabel * 100) / 100);
+
+							var title = "";
+
+							switch(true) {
+								case label>0.8: 
+									title = "Very Positive."
+									break;
+								case label>0.5: 
+									title = "Mostly Positive."
+									break;
+								case label<0.3:
+									title = "Very Negative."
+									break;
+								case label<0.5:
+									title = "Mostly Negative."
+									break;
+								default: 
+									title = "No clue!"
+									break
+
+							}
+
+							return `${label} ${title}`;
+						}
+					}
+				},
+				legend: {
+					display: false
+				},
+				scales: {
+					xAxes: [{
+						display: false,
+						ticks: {
+							fontSize: 10,
+						},
+					}],
+					yAxes: [{
+						display: true,
+						ticks: {
+							fontSize: 10,
+						},
+					}]
+				}
+			}
+		}
+
+		console.log(bar);
+		charts["bar"] = bar;
 
 		for(var x=0;x<Object.keys(history).length;x++) {
 			var key = Object.keys(history)[x];
