@@ -127,7 +127,6 @@ class Carder {
 	}
 
 	puddle_loop(puddle, depth = 0) {
-		console.log(puddle)
 		this.card(puddle, depth);
 		for(var x=0;x<puddle.children.length;x++) {
 			var next = puddle.children[x];
@@ -199,6 +198,7 @@ class timelineGraphHistory {
 
 			for(var k=0;k<Object.keys(snap).length;k++) {
 				var key = Object.keys(snap)[k];
+
 				if(key!="start_time") {
 					for(var y=0;y<snap[key].length;y++) {
 						var point = snap[key][y];
@@ -212,7 +212,7 @@ class timelineGraphHistory {
 			}
 		}
 
-		console.log(history["emojis"])
+		console.log(history);
 
 		return(history);
 	}
@@ -336,7 +336,6 @@ class timelineGraphHistory {
 
 			for(var y=0;y<Object.keys(history[key]).length;y++) {
 				var histKey = Object.keys(history[key])[y];
-				console.log(histKey);
 				// don't chart things that show up less than X times
 				var color = this.random_rgba()
 				var total = history[key][histKey].reduce((acc, point) => acc + point.y, 0);
@@ -353,8 +352,6 @@ class timelineGraphHistory {
 				dataset_sortable.push({raw: dataset, value: total});
 		
 			}
-
-			console.log(dataset_sortable);
 
 			obj.data.datasets = dataset_sortable.sort((a, b) => {return b.value - a.value}).map((sortable) => {return sortable.raw})
 			.splice(0, 9);
@@ -374,6 +371,7 @@ var reference = "";
 switch(title) {
 	case "Recent": reference = "/single_recent"; break;
 	case "Daily": reference = "/daily_recent"; break;
+	case "Weekly": reference = "/weekly_recent"; break;
 	default: reference = "/single_recent"; break;
 }
 	
@@ -385,7 +383,6 @@ $.ajax({
   type: "GET",
 }).done((res) => {
 	if(title == "Recent") {
-		console.log(res);
 		var obj = res.data;
 		displayer.puddle_loop(obj);
 	} else {
@@ -412,3 +409,22 @@ $.ajax({
 }).fail((err) => {
 	console.log(err);
 })
+
+$.ajax({
+  url: `https://frogeye.duckdns.org:8100/storage`,
+  dataType: "json",
+  type: "GET",
+}).done((data) => {
+	console.log(data.storage);
+	var element = document.getElementById("sidebar-activity");
+
+	for(var k=0;k<Object.keys(data.storage).length;k++) {
+		var key = Object.keys(data.storage)[k];
+
+		element.innerHTML += `<li><p style="display: inline">${key}: ${data.storage[key]}</p></li>`
+	}
+
+}).fail((err) => {
+	console.log(err);
+})
+

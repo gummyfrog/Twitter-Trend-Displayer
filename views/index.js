@@ -33,6 +33,9 @@ class customRouter {
       res.sendFile(path.join(__dirname, '/daily.html'))
     });
 
+    this.router.get('/weekly', function(req, res){
+      res.sendFile(path.join(__dirname, '/weekly.html'))
+    });
   }
 }
 

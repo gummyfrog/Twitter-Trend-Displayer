@@ -11,7 +11,8 @@ document.write(
 		<a href="/about" class="list-group-item list-group-item-action bg-light">About</a>
 		<a href="/recent" class="list-group-item list-group-item-action bg-light">Most Recent Search</a>
 		<a href="/daily" class="list-group-item list-group-item-action bg-light">All from Today</a>
-		<a class="list-group-item list-group-item-action bg-light construction">Weekly</a>	
+		<a href="/weekly" class="list-group-item list-group-item-action bg-light">Weekly</a>
+		<a class="list-group-item list-group-item-action bg-light construction">Construction</a>	
 		<ol id="sidebar-activity" class="list-group-item bg-light"></ol>
 	</div>
 

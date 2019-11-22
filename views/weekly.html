@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Weekly</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+  <link href="/stylesheets/simple-sidebar.css" rel="stylesheet">
+  <link href="/stylesheets/daily.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <script src='/javascripts/sidebar.js'></script>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+      <div class="container-fluid">
+
+        <div id="cards"> </div>
+        <div id="graph"> 
+          <canvas id="timeline-graph" width="400" height="220"></canvas>
+          <button onclick="chart.displayChart(chart.charts.hashtags)"> Display Hashtags </button>
+          <button onclick="chart.displayChart(chart.charts.words)"> Display Words </button>
+          <button onclick="chart.displayChart(chart.charts.emojis)"> Display Emojis </button>
+          <button onclick="chart.displayChart(chart.charts.bar)"> Display Sentiments </button>
+        </div>
+
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <script src="https://momentjs.com/downloads/moment.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <script src="/javascripts/jquery.min.js"></script>
+  <script src='/javascripts/jsonCustomDisplayer.js'></script>
+
+
+</body>
+
+</html>
