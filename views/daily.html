@@ -13,7 +13,9 @@
   <!-- Bootstrap core CSS -->
   <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
   <link href="/stylesheets/simple-sidebar.css" rel="stylesheet">
+  <link href="/stylesheets/aggregate.css" rel="stylesheet">
   <link href="/stylesheets/daily.css" rel="stylesheet">
+
 
 </head>
 
@@ -29,13 +31,14 @@
     <div id="page-content-wrapper">
       <div class="container-fluid">
 
-        <div id="cards"> </div>
-        <div id="graph"> 
-          <canvas id="timeline-graph" width="400" height="220"></canvas>
+        <div class="header" id="header"> </div>
+
+        <div id="graph" style="user-select: none"> 
+          <canvas id="timeline-graph" width="400" height="220"> </canvas>
           <button onclick="chart.displayChart(chart.charts.hashtags)"> Display Hashtags </button>
           <button onclick="chart.displayChart(chart.charts.words)"> Display Words </button>
           <button onclick="chart.displayChart(chart.charts.emojis)"> Display Emojis </button>
-          <button onclick="chart.displayChart(chart.charts.bar)"> Display Sentiments </button>
+          <button onclick="chart.displayChart(chart.charts.sentiment)"> Display Sentiments </button>
         </div>
 
       </div>
@@ -48,7 +51,8 @@
   <script src="https://momentjs.com/downloads/moment.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
   <script src="/javascripts/jquery.min.js"></script>
-  <script src='/javascripts/jsonCustomDisplayer.js'></script>
+  <script src='/javascripts/aggregateDisplay.js'></script>
+  <script src='/javascripts/displayInfo.js'></script>
 
 
 </body>
