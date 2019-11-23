@@ -211,9 +211,16 @@ class timelineGraphHistory {
 
 	makeCharts(data) {
 		var history = this.getHistory(data.timeline_data);
-
 		var charts = {};
 		charts.sentiment = this.makeSentimentChart(data);
+
+
+		var spliceby;
+		if(this.type == "Daily") {
+			spliceby = 9
+		} else {
+			spliceby = 15
+		}
 
 		for(var x=0;x<Object.keys(history).length;x++) {
 			var key = Object.keys(history)[x];
@@ -242,12 +249,12 @@ class timelineGraphHistory {
 					},
 					legend: {
 						display: true,
-						position: "right",
+						position: "top",
 						labels: {
 							fontSize: 20,
 							boxWidth: 10,
 							usePointStyle: true,
-							padding: 0,
+							padding: 10,
 						}
 					},
 				}
@@ -255,6 +262,8 @@ class timelineGraphHistory {
 
 			if(key == "hashtags") {
 				obj.options.legend.labels.fontSize = 14;
+			} else if (key == "emojis") {
+				obj.options.legend.labels.fontSize = 30;
 			}
 
 			var dataset_sortable = [];
@@ -279,7 +288,7 @@ class timelineGraphHistory {
 			}
 
 			obj.data.datasets = dataset_sortable.sort((a, b) => {return b.value - a.value}).map((sortable) => {return sortable.raw})
-			.splice(0, 13);
+			.splice(0, spliceby);
 
 			charts[key] = obj;
 		}
