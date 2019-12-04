@@ -11,7 +11,6 @@
 	margin: 0;
 }
 
-
 .title_box {
 	position: static;
 	height: 60px;
@@ -19,55 +18,38 @@
 
 .title {
 	font-weight: 900;
-	font-size: calc(20px + 1vw);
-}
-
-
-.emoji_container {
-
-}
-
-.emoji_box {
-	padding: 8px;
-	padding-top: 0;
-	display: inline-block;
-	float: right;
-}
-
-.emoji_box:first-child {
-	animation: bounce 3s ease infinite;
+	font-size: 35px;
+	margin: 0;
 }
 
 .emoji_key {
 	margin: 0;
 	text-align: left;
+	font-size: 30px;
 }
 
-.emoji_value {
-	color: var(--farms-light) !important;
-	margin-top: -10px;
-	text-align: left;
-	font-size: 18px;
-}
-
-.word_box {
-	padding: 8px;
-	padding-top: 0;
+.stat_box {
+	padding-left: 1px;
+	padding-right: 8px;
+	padding-top: 4px;
 	display: inline-block;
 }
 
-.word_box:first-child {
+.stat_box:last-child {
 
 }
 
-.word_key {
+.stat_key {
 	margin: 0;
 	text-align: left;
 }
 
-.word_value {
+.stat_value {
 	color: var(--farms-light) !important;
 	margin-top: -5px;
 	text-align: left;
 	font-size: 18px;
+}
+
+.stat_container {
 }

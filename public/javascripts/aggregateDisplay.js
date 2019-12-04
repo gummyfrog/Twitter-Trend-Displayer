@@ -4,8 +4,22 @@ class timelineGraphHistory {
 	constructor(data, _type) {
 		this.type = _type;
 		this.colors = {
-			0: ["#282a36", "#f8f8f2"],
-			1: ["#C54F1F", "#f8f8f2"],
+			0: ["#e1daec"],
+			1: ["#c4b5da"],
+			2: ["#a791c8"],
+			3: ["#8a6cb6"],
+
+			4: ["#6d48a4"],
+			5: ["#57328d"],
+			6: ["#462871"],
+			7: ["#341e55"],
+			8: ["#231439"],
+			9: ["#8b88ab"],
+			10: ["#64608f"],
+			11: ["#3e3873"],
+			12: ["#28225c"],
+			13: ["#201b4a"],
+			14: ["#181538"]
 		}
 
 		this.ctx = document.getElementById('timeline-graph').getContext('2d');
@@ -51,7 +65,7 @@ class timelineGraphHistory {
 				`)
 		}
 
-		return ret.join("");
+		return ret.reverse().join("");
 	}
 
 
@@ -66,19 +80,19 @@ class timelineGraphHistory {
 
 		var card = `
 		<div class=title_box>
-			<div class="emoji_container">
-				${this.makeboxes(data.emojis, ["emoji_box", "emoji_key", "emoji_value"], 3, ["font-size: 35px", "font-size: 30px", "font-size: 30px"])}
-			</div>
-
 			<p class="title"> ${title} </p>
 		</div>
 
-		<div class="word_container">
-			${this.makeboxes(data.words, ["word_box", "word_key", "word_value"], 4)}
+		<div class="stat_container">
+			${this.makeboxes(data.words, ["stat_box", "stat_key", "stat_value"], 3)}
 		</div>
 
-		<div class="word_container">
-			${this.makeboxes(data.hashtags, ["word_box", "word_key", "word_value"], 4)}
+		<div class="stat_container">
+			${this.makeboxes(data.hashtags, ["stat_box", "stat_box", "stat_value"], 3)}
+		</div>
+
+		<div class="stat_container">
+			${this.makeboxes(data.emojis, ["stat_box", "emoji_key", "stat_value"], 3)}
 		</div>
 		`
 
@@ -256,6 +270,7 @@ class timelineGraphHistory {
 							boxWidth: 10,
 							usePointStyle: true,
 							padding: 10,
+							fontColor: "#5F369B"
 						}
 					},
 				}
@@ -272,6 +287,7 @@ class timelineGraphHistory {
 			for(var y=0;y<Object.keys(history[key]).length;y++) {
 				var histKey = Object.keys(history[key])[y];
 				var color = this.random_rgba();
+
 				var total = history[key][histKey].reduce((acc, point) => acc + point.y, 0);
 
 				var dataset = {
@@ -285,11 +301,23 @@ class timelineGraphHistory {
 
 				obj.data.labels.push(moment.utc(history[key].start_time).toLocaleString())
 				dataset_sortable.push({raw: dataset, value: total});
-		
 			}
 
-			obj.data.datasets = dataset_sortable.sort((a, b) => {return b.value - a.value}).map((sortable) => {return sortable.raw})
+			dataset_sortable = dataset_sortable.sort((a, b) => {return b.value - a.value}).map((sortable) => {return sortable.raw})
 			.splice(0, spliceby);
+
+			for(var z=0;z<dataset_sortable.length;z++) {
+				console.log(z);
+				if(this.colors[z] != undefined) {
+					console.log(this.colors[z][0])
+					dataset_sortable[z].backgroundColor = this.colors[z][0];
+					dataset_sortable[z].borderColor = this.colors[z][0];
+				} else {
+					break;
+				}
+			}
+
+			obj.data.datasets = dataset_sortable;
 
 			charts[key] = obj;
 		}
