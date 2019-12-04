@@ -5,17 +5,16 @@ class Carder {
 		this.element = document.getElementById("cards");
 
 		this.colors = {
-			0: ["#282a36", "#f8f8f2"],
-			1: ["#367ABD", "#1d1e18"],
-			2: ["#4CB2D4", "#1d1e18"],
-			3: ["#9FD1F0", "#1d1e18"],
-			4: ["#69C1FF", "#1d1e18"],
-			5: ["#6AE83A", "#1d1e18"],
-			6: ["#95EB00", "#1d1e18"],
-			7: ["#fff950", "#1d1e18"],
-			8: ["#FF9A08", "#1d1e18"],
-			9: ["#EB7B2D", "#1d1e18"],
-			10: ["#EE4035", "#1d1e18"],
+			1: ["#5F369B"],
+			2: ["#57328d"],
+			3: ["#4e2d7f"],
+			4: ["#462871"],
+
+			5: ["#2B2565"],
+			6: ["#251f54"],
+			7: ["#1e1943"],
+			8: ["#1a163b"],
+			9: ["#EE4035"],
 		}
 	}
 
@@ -62,8 +61,16 @@ class Carder {
 	}
 
 	card(puddle, depth) {
-		var fg = this.colors[depth][1];
-		var bg = this.colors[depth][0];
+		var fg = "var(--text-color);"
+		var bg;
+
+		if(depth==0) {
+			fg = "var(--header-text-color);"
+			bg = "var(--header-background-color);"
+		} else {
+			bg = this.colors[depth][0];
+		}
+
 		var card = `
 		<div class="shadow" style="background-color: ${bg}; margin-top: 50px; margin-left: ${depth*40}px; height:${((this.total_children(puddle) || 0) * 144) +60}px"></div>
 

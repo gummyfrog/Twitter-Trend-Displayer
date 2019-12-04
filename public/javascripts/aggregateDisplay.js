@@ -240,16 +240,17 @@ class timelineGraphHistory {
 						xAxes: [{
 							type: 'time',
 							distribution: 'linear',
-							ticks: {maxTicksLimit: 15}
+							ticks: {maxTicksLimit: 15},
 						}],
 						yAxes: [{
 							display: false,
-							ticks: {beginAtZero: false,}
+							ticks: {beginAtZero: false},
 						}],
 					},
 					legend: {
 						display: true,
 						position: "top",
+						align: "start",
 						labels: {
 							fontSize: 20,
 							boxWidth: 10,
