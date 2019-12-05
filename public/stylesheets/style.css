@@ -129,12 +129,12 @@ a:hover {
 }
 
 div#padding {
+  height: 700px;
   padding: 20px;
 }
 
 canvas {
 }
-
 
 .button-container {
   text-align: center;
@@ -147,7 +147,7 @@ button {
   display:inline-block;
   cursor:pointer;
   color: var(--text-color);
-  padding:6px 37px;
+  padding:23px 25px;
   text-decoration:none;
 }
 

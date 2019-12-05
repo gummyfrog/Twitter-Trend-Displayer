@@ -166,6 +166,9 @@ class timelineGraphHistory {
 				}],
 			},
 			options: {
+				responsive: true,
+				maintainAspectRatio: false,
+
 				tooltips: {
 					titleFontSize: 20,
 					bodyFontSize: 20,
@@ -246,6 +249,8 @@ class timelineGraphHistory {
 					datasets: [],
 				},
 				options: {
+					responsive: true,
+					maintainAspectRatio: false,
 					tooltips: {
 						titleFontSize: 20,
 						bodyFontSize: 20,
