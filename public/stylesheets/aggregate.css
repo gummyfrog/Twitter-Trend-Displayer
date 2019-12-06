@@ -1,29 +1,3 @@
-.header {
-	background-color: var(--header-background-color);
-	padding: 25px;
-	padding-top: 5px;
-	padding-bottom: 0;
-	width: 100%;
-	height: 100%;
-	border: 0;
-}
-
-.header p {
-	color: var(--header-text-color);
-	margin: 0;
-}
-
-.title_box {
-	position: static;
-	height: 60px;
-}
-
-.title {
-	font-weight: 900;
-	font-size: 35px;
-	margin: 0;
-}
-
 .emoji_key {
 	margin: 0;
 	text-align: left;
@@ -37,10 +11,6 @@
 	display: inline-block;
 }
 
-.stat_box:last-child {
-
-}
-
 .stat_key {
 	margin: 0;
 	text-align: left;
@@ -51,7 +21,4 @@
 	margin-top: -5px;
 	text-align: left;
 	font-size: 18px;
-}
-
-.stat_container {
 }

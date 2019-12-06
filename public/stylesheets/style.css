@@ -113,6 +113,33 @@ button:active {
   top:1px;
 }
 
+.header {
+  background-color: var(--header-background-color);
+  padding: 25px;
+  padding-top: 5px;
+  padding-bottom: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.header p {
+  color: var(--header-text-color);
+  margin: 0;
+}
+
+.title_box {
+  position: static;
+  height: 60px;
+}
+
+.title {
+  font-weight: 900;
+  font-size: 35px;
+  margin: 0;
+}
+
+
 .construction {
   transition: 0.3s;
   opacity: 0.1;
