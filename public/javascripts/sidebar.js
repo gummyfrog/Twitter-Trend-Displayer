@@ -1,32 +1,34 @@
-document.write(
-	`
-<div class="bg-light border-right" id="sidebar-wrapper">
-	<div class="sidebar-heading"> 
-        <div class="title-icon"><i class="fas fa-tractor"></i></div>
-		Twitter Farms
-	</div>
+document.write(`
+<div class="topnav" id="myTopnav">
+    <a href="/" class="title-icon"><i class="fas fa-tractor"></i></a>
+    <a href="/about">About</a>
+    <a href="/daily">Daily Trends</a>
+    <a href="/weekly">Weekly Trends</a>
+    <a href="/recent">Most Recent Snapshot</a>
 
-    <div class="theme-switch-wrapper list-group-item">
+    <div class="theme-switch-wrapper">
         <label class="theme-switch" for="checkbox">
-            <input type="checkbox" id="checkbox" />
+            <input type="checkbox" id="checkbox"/>
             <div class="slider round"></div>
       </label>
     </div>
 
-	<div class="list-group list-group-flush">
-		<a href="/about" class="list-group-item list-group-item-action">About</a>
-		<a href="/recent" class="list-group-item list-group-item-action">Most Recent Snapshot</a>
-		<a href="/daily" class="list-group-item list-group-item-action">Daily Trends</a>
-		<a href="/weekly" class="list-group-item list-group-item-action">Weekly Trends</a>
-		<ol id="sidebar-activity" class="list-group-item"></ol>
-	</div>
-
-
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <i class="fa fa-ellipsis-h"></i>
+    </a>
 </div>
+`)
 
-`);
+function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+} 
 
-
+// const background = document.getElementById('wrapper');
 const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
 
 function switchTheme(e) {
@@ -37,13 +39,12 @@ function switchTheme(e) {
     else {
         document.documentElement.setAttribute('data-theme', 'light');
         localStorage.setItem('theme', 'light'); //add this
-    }    
+    }
+
+    // background.toggleClass("active")
 }
 
-
 toggleSwitch.addEventListener('change', switchTheme, false);
-
-
 const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
 
 if (currentTheme) {

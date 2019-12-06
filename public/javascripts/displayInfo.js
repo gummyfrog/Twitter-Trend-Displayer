@@ -11,7 +11,7 @@ $.ajax({
 		if(track.length > 15) {
 			track = track.substr(0, 15) + "..."
 		}
-		element.innerHTML += `<li><div class="dripcss"><div></div> <div></div></div> <p style="display: inline">${track}</p></li>`
+		element.innerHTML += `<div class="dripcss"><div></div> <div></div></div> <p style="display: inline">${track}</p>`
 	}
 	$.ajax({
 	  url: `https://frogeye.duckdns.org:8100/storage`,
@@ -20,7 +20,7 @@ $.ajax({
 	}).done((data) => {
 		console.log(data.storage);
 		var element = document.getElementById("sidebar-activity");
-		element.innerHTML += `<li><p style="display: inline">${data.storage["single"]} Snapshots Stored.</p></li>`
+		element.innerHTML += `<p style="display: inline">${data.storage["single"]} Snapshots Stored.</p>`
 
 	}).fail((err) => {
 		console.log(err);

@@ -61,12 +61,12 @@ class Carder {
 	}
 
 	card(puddle, depth) {
-		var fg = "var(--text-color);"
+		var fg = "#fff"
 		var bg;
 
 		if(depth==0) {
-			fg = "var(--header-text-color);"
-			bg = "var(--header-background-color);"
+			fg = "var(--header-background-color);"
+			bg = "var(--header-text-color);"
 		} else {
 			bg = this.colors[depth][0];
 		}

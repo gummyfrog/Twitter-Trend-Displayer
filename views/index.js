@@ -18,7 +18,7 @@ class customRouter {
   setup() {
 
     this.router.get('/', function(req, res){
-      res.sendFile(path.join(__dirname, '/recent.html'))
+      res.sendFile(path.join(__dirname, '/about.html'))
     });
 
     this.router.get('/recent', function(req, res){
