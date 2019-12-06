@@ -78,8 +78,10 @@ class timelineGraphHistory {
 			title = "Weekly Trends"
 		}
 
+		document.getElementById("header-title").innerHtml = title;
+
 		var card = `
-		<div class=title_box>
+		<div class="title_box">
 			<p class="title"> ${title} </p>
 		</div>
 
