@@ -344,7 +344,7 @@ switch(title) {
 var chart;
 
 $.ajax({
-  url: `https://frogeye.duckdns.org:8100${reference}`,
+  url: `https://frogeye.duckdns.org${reference}`,
   dataType: "json",
   type: "GET",
 }).done((res) => {

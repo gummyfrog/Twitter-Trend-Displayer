@@ -1,5 +1,5 @@
 $.ajax({
-  url: `https://frogeye.duckdns.org:8100/active`,
+  url: `https://frogeye.duckdns.org/active`,
   dataType: "json",
   type: "GET",
 }).done((data) => {
@@ -14,7 +14,7 @@ $.ajax({
 		element.innerHTML += `<div class="dripcss"><div></div> <div></div></div> <p style="display: inline">${track}</p>`
 	}
 	$.ajax({
-	  url: `https://frogeye.duckdns.org:8100/storage`,
+	  url: `https://frogeye.duckdns.org/storage`,
 	  dataType: "json",
 	  type: "GET",
 	}).done((data) => {

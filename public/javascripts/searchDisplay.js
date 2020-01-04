@@ -104,7 +104,7 @@ var displayer = new Carder()
 
 
 $.ajax({
-  url: `https://frogeye.duckdns.org:8100/single_recent`,
+  url: `https://frogeye.duckdns.org/single_recent`,
   dataType: "json",
   type: "GET",
 }).done((res) => {
