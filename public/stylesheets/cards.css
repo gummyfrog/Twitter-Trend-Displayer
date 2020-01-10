@@ -8,6 +8,7 @@
 
 .card p {
 	margin: 0;
+	font-size: 1.1rem;
 }
 
 .card {
@@ -40,7 +41,7 @@
 .card_emoji {
 	display: inline;
 	float: right;
-	font-size: 32px !important;
+	font-size: 2.2rem !important;
 }
 
 .shadow {
@@ -59,7 +60,7 @@
 }
 
 .daily_emoji {
-	font-size: 60px !important;
+	font-size: 2.2rem !important;
 }
 
 
