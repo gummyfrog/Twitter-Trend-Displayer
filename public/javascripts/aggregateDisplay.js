@@ -127,31 +127,6 @@ class timelineGraphHistory {
 		return(res.sort((a, b) => {return b.value - a.value}));
 	}
 
-	getHistory(timeline) {
-		var history = {};
-
-		for(var x=0;x<timeline.length;x++) {
-			var snap = timeline[x];
-
-			for(var k=0;k<Object.keys(snap).length;k++) {
-				var key = Object.keys(snap)[k];
-
-				if(key!="start_time") {
-					for(var y=0;y<snap[key].length;y++) {
-						var point = snap[key][y];
-
-						if(history[key] == undefined) {history[key]= {}}
-						if(history[key][point.key] == undefined) {history[key][point.key] = []}
-
-						history[key][point.key].push({t: moment.utc(snap.start_time), y: point.value});
-					}
-				}
-			}
-		}
-
-		return(history);
-	}
-
 
 	makeSentimentChart(data) {
 		var sentiments = this.getSentiments(data.timeline_data);
@@ -229,10 +204,10 @@ class timelineGraphHistory {
 	}
 
 	makeCharts(data) {
-		var history = this.getHistory(data.timeline_data);
+		var history = data.timeline_history;
 		var charts = {};
+		
 		charts.sentiment = this.makeSentimentChart(data);
-
 
 		var spliceby;
 		if(this.type == "Daily") {
