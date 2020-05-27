@@ -22,6 +22,9 @@ class timelineGraphHistory {
 		}
 
 		this.ctx = document.getElementById('timeline-graph').getContext('2d');
+		this.description = document.getElementById('description');
+		this.buttons = document.getElementsByClassName('button-container');
+		this.buttons[0].classList.remove('hidden');
 		this.current_chart;
 
 		this.charts = this.makeCharts(data);
@@ -43,18 +46,19 @@ class timelineGraphHistory {
 		return ["hsl(",hue,",80%,50%)"].join("");
 	}
 
-	displayChart(data, thisButton) {
+	displayChart(_description, data, thisButton) {
 		$(":button").removeClass("selected");
 		$("thisButton").addClass("selected");
 		if(this.current_chart != null) {
 			this.current_chart.destroy();
 		}
-
+		this.description.textContent = _description;
 		this.current_chart = new Chart(this.ctx, data);
 	}
 
-	makeboxes(_arr, _classes, _count, _styles=[]) {
+	makeboxes(_title, _arr, _classes, _count, _styles=[]) {
 		var ret = [];
+		ret.push(`<p class="stat_box">${_title}</p>`)
 		for(var x=0;x<_count;x++) {
 			if(_arr[x] == undefined) break;
 			ret.push(`
@@ -66,7 +70,7 @@ class timelineGraphHistory {
 				`)
 		}
 
-		return ret.reverse().join("");
+		return ret.join("");
 	}
 
 
@@ -87,15 +91,15 @@ class timelineGraphHistory {
 		</div>
 
 		<div class="stat_container">
-			${this.makeboxes(data.words, ["stat_box", "stat_key", "stat_value"], 3)}
+			${this.makeboxes("words", data.words, ["stat_box", "stat_key", "stat_value"], 3)}
 		</div>
 
 		<div class="stat_container">
-			${this.makeboxes(data.hashtags, ["stat_box", "stat_box", "stat_value"], 3)}
+			${this.makeboxes("hashtags", data.hashtags, ["stat_box", "stat_box", "stat_value"], 3)}
 		</div>
 
 		<div class="stat_container">
-			${this.makeboxes(data.emojis, ["stat_box", "emoji_key", "stat_value"], 3)}
+			${this.makeboxes("emojis", data.emojis, ["stat_box", "emoji_key", "stat_value"], 3)}
 		</div>
 		`
 
@@ -288,7 +292,8 @@ class timelineGraphHistory {
 							boxWidth: 10,
 							usePointStyle: true,
 							padding: 10,
-							fontColor: "#5F369B"
+							fontColor: "#5F369B",
+							fontFamily: "Roboto Mono"
 						}
 					},
 				}
@@ -359,8 +364,9 @@ $.ajax({
   type: "GET",
 }).done((res) => {
 	chart = new timelineGraphHistory(res.data, title);
-	chart.displayChart(chart.charts.hashtags)
-
+	chart.displayChart("hashtags", chart.charts.hashtags)
 }).fail((err) => {
+	var header = document.getElementById("header-title")
+	header.textContent = `no data available at the moment!\ncode ${err.status}`
 	console.log(err);
 })

@@ -13,11 +13,10 @@
   <link href="/stylesheets/style.css" rel="stylesheet">
   <link href="/stylesheets/top-nav.css" rel="stylesheet">
   <link href="/stylesheets/aggregate.css" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"> 
 </head>
 
 <body>
-
   <script src='/javascripts/sidebar.js'></script>
 
   <div class="d-flex" id="wrapper">
@@ -31,15 +30,16 @@
           </div>
         </div>
   
-        <div class="button-container">
-          <button onclick="chart.displayChart(chart.charts.hashtags)"> <i class="fas fa-hashtag"></i> </button>
-          <button onclick="chart.displayChart(chart.charts.words)"> <i class="fa fa-comments"></i> </button>
-          <button onclick="chart.displayChart(chart.charts.emojis)"> <i class="fa fa-laugh"></i> </button>
-          <button onclick="chart.displayChart(chart.charts.uniqueaccountmap)"> <i class="fa fa-user"></i> </button>
-          <button onclick="chart.displayChart(chart.charts.sentiment)"> <i class="fa fa-heart"></i> </button>
+        <div class="button-container hidden">
+          <button onclick="chart.displayChart('hashtags', chart.charts.hashtags)"> <i class="fab fa-slack-hash"></i> </button>
+          <button onclick="chart.displayChart('words', chart.charts.words)"> <i class="fa fa-comments"></i> </button>
+          <button onclick="chart.displayChart('emojis', chart.charts.emojis)"> <i class="fa fa-grin-squint-tears"></i> </button>
+          <button onclick="chart.displayChart('accounts', chart.charts.uniqueaccountmap)"> <i class="fa fa-user-circle"></i> </button>
+          <button onclick="chart.displayChart('sentiment (positivity, negativity)', chart.charts.sentiment)"> <i class="fa fa-heart"></i> </button>
         </div>
 
         <div id="padding" style="user-select: none"> 
+          <p class="description" id="description"> </p> 
           <canvas id="timeline-graph" width="400" height="220"></canvas>
         </div>
 

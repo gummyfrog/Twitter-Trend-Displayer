@@ -1,6 +1,6 @@
 document.write(`
 <div class="topnav" id="myTopnav">
-    <a href="/" class="title-icon"><i class="fas fa-tractor"></i></a>
+    <a href="/" class="title-icon"><i class="fas fa-book-reader"></i></a>
     <a href="/about">About</a>
     <a href="/daily">Daily Trends</a>
     <a href="/weekly">Weekly Trends</a>
