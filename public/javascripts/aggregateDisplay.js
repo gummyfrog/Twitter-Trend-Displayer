@@ -56,9 +56,8 @@ class timelineGraphHistory {
 		this.current_chart = new Chart(this.ctx, data);
 	}
 
-	makeboxes(_title, _arr, _classes, _count, _styles=[]) {
+	makeboxes(_arr, _classes, _count, _styles=[]) {
 		var ret = [];
-		ret.push(`<p class="stat_box">${_title}</p>`)
 		for(var x=0;x<_count;x++) {
 			if(_arr[x] == undefined) break;
 			ret.push(`
@@ -90,16 +89,20 @@ class timelineGraphHistory {
 			<p class="title"> ${title} </p>
 		</div>
 
+
+		<p class="stat_title">words</p>
 		<div class="stat_container">
-			${this.makeboxes("words", data.words, ["stat_box", "stat_key", "stat_value"], 3)}
+			${this.makeboxes(data.words, ["stat_box", "stat_key", "stat_value"], 3)}
 		</div>
 
+		<p class="stat_title">hashtags</p>
 		<div class="stat_container">
-			${this.makeboxes("hashtags", data.hashtags, ["stat_box", "stat_box", "stat_value"], 3)}
+			${this.makeboxes(data.hashtags, ["stat_box", "stat_box", "stat_value"], 3)}
 		</div>
 
+		<p class="stat_title">emojis</p>
 		<div class="stat_container">
-			${this.makeboxes("emojis", data.emojis, ["stat_box", "emoji_key", "stat_value"], 3)}
+			${this.makeboxes(data.emojis, ["stat_box", "emoji_key", "stat_value"], 3)}
 		</div>
 		`
 

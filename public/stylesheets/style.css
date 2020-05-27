@@ -117,11 +117,12 @@ button:active {
 }
 
 .about {
-  width: 50%;
+  width: 60%;
   word-wrap: break-word;
   padding: 25px;
   padding-top: 5px;
   padding-bottom: 12px;
+  transition: 0.2s;
 }
 
 .header {
