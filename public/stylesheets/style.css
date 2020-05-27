@@ -107,7 +107,7 @@ button {
   display:inline-block;
   cursor:pointer;
   color: var(--text-color);
-  padding:23px 25px;
+  padding:30px 18px;
   text-decoration:none;
 }
 
